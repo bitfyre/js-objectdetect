@@ -8,127 +8,6 @@ var objectdetect = (function() {
   'use strict';
 
   var /**
-		 * Evaluates a compiled cascade classifier. Sliding window approach.
-		 *
-		 * @param {Uint32Array}  sat        SAT of the source image
-		 * @param {Uint32Array}  rsat       Rotated SAT of the source image
-		 * @param {Uint32Array}  ssat       Squared SAT of the source image
-		 * @param {Uint32Array}  [cannySat] SAT of the canny source image
-		 * @param {Number}       width      Width of the source image
-		 * @param {Number}       height     Height of the source image
-		 * @param {Number}       step       Stepsize, increase for performance
-		 * @param {Float32Array} classifier Compiled cascade classifier
-		 *
-		 * @return {Array} Rectangles representing detected objects
-		 */
-    detect = function(
-      sat,
-      rsat,
-      ssat,
-      cannySat,
-      width,
-      height,
-      step,
-      classifier
-    ) {
-      width += 1;
-      height += 1;
-
-      var classifierUint32 = new Uint32Array(classifier.buffer),
-        windowWidth = classifierUint32[0],
-        windowHeight = classifierUint32[1],
-        windowHeightTimesWidth = windowHeight * width,
-        area = windowWidth * windowHeight,
-        inverseArea = 1 / area,
-        widthTimesStep = width * step,
-        rects = [];
-
-      for (var x = 0; x + windowWidth < width; x += step) {
-        var satIndex = x;
-        for (var y = 0; y + windowHeight < height; y += step) {
-          var satIndex1 = satIndex + windowWidth,
-            satIndex2 = satIndex + windowHeightTimesWidth,
-            satIndex3 = satIndex2 + windowWidth,
-            canny = false;
-
-          // Canny test:
-          if (cannySat) {
-            var edgesDensity =
-              (cannySat[satIndex] -
-                cannySat[satIndex1] -
-                cannySat[satIndex2] +
-                cannySat[satIndex3]) *
-              inverseArea;
-            if (edgesDensity < 60 || edgesDensity > 200) {
-              canny = true;
-              satIndex += widthTimesStep;
-              continue;
-            }
-          }
-
-          // Normalize mean and variance of window area:
-          var mean =
-              sat[satIndex] - sat[satIndex1] - sat[satIndex2] + sat[satIndex3],
-            variance =
-              (ssat[satIndex] -
-                ssat[satIndex1] -
-                ssat[satIndex2] +
-                ssat[satIndex3]) *
-                area -
-              mean * mean,
-            std = variance > 1 ? Math.sqrt(variance) : 1,
-            found = true;
-
-          // Evaluate cascade classifier aka 'stages':
-          for (var i = 1, iEnd = classifier.length - 1; i < iEnd; ) {
-            var complexClassifierThreshold = classifier[++i];
-            // Evaluate complex classifiers aka 'trees':
-            var complexClassifierSum = 0;
-            for (var j = 0, jEnd = classifierUint32[++i]; j < jEnd; ++j) {
-              // Evaluate simple classifiers aka 'nodes':
-              var simpleClassifierSum = 0;
-
-              if (classifierUint32[++i]) {
-                // Simple classifier is tilted:
-                for (var kEnd = i + classifierUint32[++i]; i < kEnd; ) {
-                  var f1 = satIndex + classifierUint32[++i],
-                    packed = classifierUint32[++i],
-                    f2 = f1 + (packed & 0xffff),
-                    f3 = f1 + ((packed >> 16) & 0xffff);
-
-                  simpleClassifierSum +=
-                    classifier[++i] *
-                    (rsat[f1] - rsat[f2] - rsat[f3] + rsat[f2 + f3 - f1]);
-                }
-              } else {
-                // Simple classifier is not tilted:
-                for (var kEnd = i + classifierUint32[++i]; i < kEnd; ) {
-                  var f1 = satIndex + classifierUint32[++i],
-                    packed = classifierUint32[++i],
-                    f2 = f1 + (packed & 0xffff),
-                    f3 = f1 + ((packed >> 16) & 0xffff);
-
-                  simpleClassifierSum +=
-                    classifier[++i] *
-                    (sat[f1] - sat[f2] - sat[f3] + sat[f2 + f3 - f1]);
-                }
-              }
-              complexClassifierSum +=
-                classifier[i + (simpleClassifierSum > std ? 2 : 1)];
-              i += 2;
-            }
-            if (complexClassifierSum < complexClassifierThreshold) {
-              found = false;
-              break;
-            }
-          }
-          if (found) rects.push([x, y, windowWidth, windowHeight]);
-          satIndex += widthTimesStep;
-        }
-      }
-      return rects;
-    },
-    /**
 		 * Groups rectangles together using a rectilinear distance metric. For
 		 * each group of related rectangles, a representative mean rectangle
 		 * is returned.
@@ -138,104 +17,104 @@ var objectdetect = (function() {
 		 * @param {Number} confluence	Neighbor distance threshold factor
 		 * @return {Array} Mean rectangles (Arrays of 4 floats)
 		 */
-    groupRectangles = function(rects, minNeighbors, confluence) {
-      var rectsLength = rects.length;
-      if (!confluence) confluence = 0.25;
+  groupRectangles = function(rects, minNeighbors, confluence) {
+    var rectsLength = rects.length;
+    if (!confluence) confluence = 0.25;
 
-      // Partition rects into similarity classes:
-      var numClasses = 0;
-      var labels = new Array(rectsLength);
-      for (var i = 0; i < rectsLength; ++i) {
-        labels[i] = 0;
-      }
+    // Partition rects into similarity classes:
+    var numClasses = 0;
+    var labels = new Array(rectsLength);
+    for (var i = 0; i < rectsLength; ++i) {
+      labels[i] = 0;
+    }
 
-      var abs = Math.abs,
-        min = Math.min;
-      for (var i = 0; i < rectsLength; ++i) {
-        var found = false;
-        for (var j = 0; j < i; ++j) {
-          // Determine similarity:
-          var rect1 = rects[i];
-          var rect2 = rects[j];
-          var delta =
-            confluence * (min(rect1[2], rect2[2]) + min(rect1[3], rect2[3]));
-          if (
-            abs(rect1[0] - rect2[0]) <= delta &&
-            abs(rect1[1] - rect2[1]) <= delta &&
-            abs(rect1[0] + rect1[2] - rect2[0] - rect2[2]) <= delta &&
-            abs(rect1[1] + rect1[3] - rect2[1] - rect2[3]) <= delta
-          ) {
-            labels[i] = labels[j];
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          labels[i] = numClasses++;
+    var abs = Math.abs,
+      min = Math.min;
+    for (var i = 0; i < rectsLength; ++i) {
+      var found = false;
+      for (var j = 0; j < i; ++j) {
+        // Determine similarity:
+        var rect1 = rects[i];
+        var rect2 = rects[j];
+        var delta =
+          confluence * (min(rect1[2], rect2[2]) + min(rect1[3], rect2[3]));
+        if (
+          abs(rect1[0] - rect2[0]) <= delta &&
+          abs(rect1[1] - rect2[1]) <= delta &&
+          abs(rect1[0] + rect1[2] - rect2[0] - rect2[2]) <= delta &&
+          abs(rect1[1] + rect1[3] - rect2[1] - rect2[3]) <= delta
+        ) {
+          labels[i] = labels[j];
+          found = true;
+          break;
         }
       }
-
-      // Compute average rectangle (group) for each cluster:
-      var groups = new Array(numClasses);
-
-      for (var i = 0; i < numClasses; ++i) {
-        groups[i] = [0, 0, 0, 0, 0];
+      if (!found) {
+        labels[i] = numClasses++;
       }
+    }
 
-      for (var i = 0; i < rectsLength; ++i) {
-        var rect = rects[i],
-          group = groups[labels[i]];
-        group[0] += rect[0];
-        group[1] += rect[1];
-        group[2] += rect[2];
-        group[3] += rect[3];
-        ++group[4];
-      }
+    // Compute average rectangle (group) for each cluster:
+    var groups = new Array(numClasses);
 
-      for (var i = 0; i < numClasses; ++i) {
-        var numNeighbors = groups[i][4];
-        if (numNeighbors >= minNeighbors) {
-          var group = groups[i];
-          numNeighbors = 1 / numNeighbors;
-          group[0] *= numNeighbors;
-          group[1] *= numNeighbors;
-          group[2] *= numNeighbors;
-          group[3] *= numNeighbors;
-        } else groups.splice(i, 1);
-      }
+    for (var i = 0; i < numClasses; ++i) {
+      groups[i] = [0, 0, 0, 0, 0];
+    }
 
-      // Filter out small rectangles inside larger rectangles:
-      var filteredGroups = [];
-      for (var i = 0; i < numClasses; ++i) {
-        var r1 = groups[i];
+    for (var i = 0; i < rectsLength; ++i) {
+      var rect = rects[i],
+        group = groups[labels[i]];
+      group[0] += rect[0];
+      group[1] += rect[1];
+      group[2] += rect[2];
+      group[3] += rect[3];
+      ++group[4];
+    }
 
-        for (var j = i + 1; j < numClasses; ++j) {
-          var r2 = groups[j];
+    for (var i = 0; i < numClasses; ++i) {
+      var numNeighbors = groups[i][4];
+      if (numNeighbors >= minNeighbors) {
+        var group = groups[i];
+        numNeighbors = 1 / numNeighbors;
+        group[0] *= numNeighbors;
+        group[1] *= numNeighbors;
+        group[2] *= numNeighbors;
+        group[3] *= numNeighbors;
+      } else groups.splice(i, 1);
+    }
 
-          var dx = r2[2] * confluence; // * 0.2;
-          var dy = r2[3] * confluence; // * 0.2;
+    // Filter out small rectangles inside larger rectangles:
+    var filteredGroups = [];
+    for (var i = 0; i < numClasses; ++i) {
+      var r1 = groups[i];
 
-          // Not antisymmetric, must check both r1 > r2 and r2 > r1:
-          if (
-            (r1[0] >= r2[0] - dx &&
-              r1[1] >= r2[1] - dy &&
-              r1[0] + r1[2] <= r2[0] + r2[2] + dx &&
-              r1[1] + r1[3] <= r2[1] + r2[3] + dy) ||
-            (r2[0] >= r1[0] - dx &&
-              r2[1] >= r1[1] - dy &&
-              r2[0] + r2[2] <= r1[0] + r1[2] + dx &&
-              r2[1] + r2[3] <= r1[1] + r1[3] + dy)
-          ) {
-            break;
-          }
+      for (var j = i + 1; j < numClasses; ++j) {
+        var r2 = groups[j];
+
+        var dx = r2[2] * confluence; // * 0.2;
+        var dy = r2[3] * confluence; // * 0.2;
+
+        // Not antisymmetric, must check both r1 > r2 and r2 > r1:
+        if (
+          (r1[0] >= r2[0] - dx &&
+            r1[1] >= r2[1] - dy &&
+            r1[0] + r1[2] <= r2[0] + r2[2] + dx &&
+            r1[1] + r1[3] <= r2[1] + r2[3] + dy) ||
+          (r2[0] >= r1[0] - dx &&
+            r2[1] >= r1[1] - dy &&
+            r2[0] + r2[2] <= r1[0] + r1[2] + dx &&
+            r2[1] + r2[3] <= r1[1] + r1[3] + dy)
+        ) {
+          break;
         }
-
-        if (j === numClasses) {
-          filteredGroups.push(r1);
-        }
       }
-      return filteredGroups;
-    };
+
+      if (j === numClasses) {
+        filteredGroups.push(r1);
+      }
+    }
+    return filteredGroups;
+  };
 
   var detector = (function() {
     /**
