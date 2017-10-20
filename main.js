@@ -16,6 +16,7 @@ import equalizeHistogram from './src/util/equalize-histogram.js';
 import mirrorClassifier from './src/util/mirror-classifier.js';
 import compileClassifier from './src/util/compile-classifier.js';
 import detect from './src/util/detect.js';
+import groupRectangles from './src/util/group-rectangles.js';
 
 export default function ObjectDetector() {
   console.log(typeof convertRgbaToGrayscale);
@@ -29,6 +30,7 @@ export default function ObjectDetector() {
   console.log(typeof mirrorClassifier);
   console.log(typeof compileClassifier);
   console.log(typeof detect);
+  console.log(typeof groupRectangles);
   console.log('test');
 
   return 'test';
