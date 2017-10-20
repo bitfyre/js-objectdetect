@@ -10,16 +10,13 @@
     "build": "rollup --config",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix main.js rollup.config.js"
+    "lint": "eslint --fix main.js src/**/*.js rollup.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitfyre/object-detect.git"
   },
-  "keywords": [
-    "face-detection",
-    "object-detection"
-  ],
+  "keywords": ["face-detection", "object-detection"],
   "contributors": [
     {
       "name": "Martin Tschirsich"
