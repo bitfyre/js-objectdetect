@@ -14,6 +14,7 @@ import computeSquaredSat from './src/util/compute-squared-sat.js';
 import computeRsat from './src/util/compute-rsat.js';
 import equalizeHistogram from './src/util/equalize-histogram.js';
 import mirrorClassifier from './src/util/mirror-classifier.js';
+import compileClassifier from './src/util/compile-classifier.js';
 
 export default function ObjectDetector() {
   console.log(typeof convertRgbaToGrayscale);
@@ -25,6 +26,7 @@ export default function ObjectDetector() {
   console.log(typeof computeRsat);
   console.log(typeof equalizeHistogram);
   console.log(typeof mirrorClassifier);
+  console.log(typeof compileClassifier);
   console.log('test');
 
   return 'test';
