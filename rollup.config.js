@@ -4,7 +4,8 @@ export default {
   input: 'main.js',
   output: {
     file: 'build/bundle.js',
-    format: 'cjs'
+    format: 'iife',
+    name: 'ObjectDetector'
   },
   plugins: [eslint()],
   watch: {
