@@ -12,6 +12,7 @@ import computeCanny from './src/util/compute-canny.js';
 import computeSat from './src/util/compute-sat.js';
 import computeSquaredSat from './src/util/compute-squared-sat.js';
 import computeRsat from './src/util/compute-rsat.js';
+import equalizeHistogram from './src/util/equalize-histogram.js';
 
 export default function ObjectDetector() {
   console.log(typeof convertRgbaToGrayscale);
@@ -21,6 +22,7 @@ export default function ObjectDetector() {
   console.log(typeof computeSat);
   console.log(typeof computeSquaredSat);
   console.log(typeof computeRsat);
+  console.log(typeof equalizeHistogram);
   console.log('test');
 
   return 'test';
