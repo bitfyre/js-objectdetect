@@ -9,6 +9,6 @@ export default {
   },
   plugins: [eslint()],
   watch: {
-    include: ['main.js', 'src/**']
+    include: ['main.js', 'src/**/*.js']
   }
 };

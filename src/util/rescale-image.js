@@ -20,13 +20,13 @@
  */
 
 export default function rescaleImage(src, srcWidth, srcHeight, factor, dst) {
-  var srcLength = srcHeight * srcWidth,
+  let srcLength = srcHeight * srcWidth,
     dstWidth = ~~(srcWidth / factor),
     dstHeight = ~~(srcHeight / factor);
 
   if (!dst) dst = new src.constructor(dstWidth * srcHeight);
 
-  for (var x = 0; x < dstWidth; ++x) {
+  for (let x = 0; x < dstWidth; ++x) {
     var dstIndex = x;
     for (
       var srcIndex = ~~(x * factor), srcEnd = srcIndex + srcLength;
@@ -39,7 +39,7 @@ export default function rescaleImage(src, srcWidth, srcHeight, factor, dst) {
   }
 
   var dstIndex = 0;
-  for (var y = 0, yEnd = dstHeight * factor; y < yEnd; y += factor) {
+  for (let y = 0, yEnd = dstHeight * factor; y < yEnd; y += factor) {
     for (
       var srcIndex = ~~y * dstWidth, srcEnd = srcIndex + dstWidth;
       srcIndex < srcEnd;

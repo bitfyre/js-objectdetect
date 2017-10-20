@@ -18,10 +18,10 @@
 export default function mirrorImage(src, srcWidth, srcHeight, dst) {
   if (!dst) dst = new src.constructor(srcWidth * srcHeight);
 
-  var index = 0;
-  for (var y = 0; y < srcHeight; ++y) {
-    for (var x = srcWidth >> 1; x >= 0; --x) {
-      var swap = src[index + x];
+  let index = 0;
+  for (let y = 0; y < srcHeight; ++y) {
+    for (let x = srcWidth >> 1; x >= 0; --x) {
+      const swap = src[index + x];
       dst[index + x] = src[index + srcWidth - 1 - x];
       dst[index + srcWidth - 1 - x] = swap;
     }

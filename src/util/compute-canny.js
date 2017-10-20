@@ -18,10 +18,10 @@
  * @return {Array} 1-channel destination image
  */
 export default function computeCanny(src, srcWidth, srcHeight, dst) {
-  var srcLength = srcWidth * srcHeight;
+  const srcLength = srcWidth * srcHeight;
   if (!dst) dst = new src.constructor(srcLength);
-  var buffer1 = dst === src ? new src.constructor(srcLength) : dst;
-  var buffer2 = new src.constructor(srcLength);
+  const buffer1 = dst === src ? new src.constructor(srcLength) : dst;
+  const buffer2 = new src.constructor(srcLength);
 
   // Gaussian filter with size=5, sigma=sqrt(2) horizontal pass:
   for (var x = 2; x < srcWidth - 2; ++x) {
@@ -52,7 +52,7 @@ export default function computeCanny(src, srcWidth, srcHeight, dst) {
   }
 
   // Compute gradient:
-  var abs = Math.abs;
+  const abs = Math.abs;
   for (var x = 2; x < srcWidth - 2; ++x) {
     var index = x + srcWidth;
     for (var y = 2; y < srcHeight - 2; ++y) {

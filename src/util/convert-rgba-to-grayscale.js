@@ -15,10 +15,10 @@
    * @return {Array} 1-channel 32-bit destination image
    */
 export default function convertRgbaToGrayscale(src, dst) {
-  var srcLength = src.length;
+  const srcLength = src.length;
   if (!dst) dst = new Uint32Array(srcLength >> 2);
 
-  for (var i = 0; i < srcLength; i += 2) {
+  for (let i = 0; i < srcLength; i += 2) {
     dst[i >> 2] =
       (src[i] * 4899 + src[++i] * 9617 + src[++i] * 1868 + 8192) >> 14;
   }
