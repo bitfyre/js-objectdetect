@@ -1,0 +1,32 @@
+{
+  "name": "object-detect",
+  "version": "2.0.0-alpha.1",
+  "description": "Native JavaScript Object Detection",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfyre/object-detect.git"
+  },
+  "keywords": [
+    "face-detection",
+    "object-detection"
+  ],
+  "contributors": [
+    { "name": "Martin Tschirsich" },
+    {
+      "name": "Alex Lemanski",
+      "url": "http://bitfyre.net"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitfyre/object-detect/issues"
+  },
+  "homepage": "https://github.com/bitfyre/object-detect#readme"
+}
