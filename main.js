@@ -11,12 +11,16 @@ import mirrorImage from './src/util/mirror-image.js';
 import computeCanny from './src/util/compute-canny.js';
 import computeSat from './src/util/compute-sat.js';
 import computeSquaredSat from './src/util/compute-squared-sat.js';
+import computeRsat from './src/util/compute-rsat.js';
 
 export default function ObjectDetector() {
   console.log(typeof convertRgbaToGrayscale);
   console.log(typeof rescaleImage);
   console.log(typeof mirrorImage);
   console.log(typeof computeCanny);
+  console.log(typeof computeSat);
+  console.log(typeof computeSquaredSat);
+  console.log(typeof computeRsat);
   console.log('test');
 
   return 'test';
