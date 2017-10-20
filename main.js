@@ -9,6 +9,8 @@ import convertRgbaToGrayscale from './src/util/convert-rgba-to-grayscale.js';
 import rescaleImage from './src/util/rescale-image.js';
 import mirrorImage from './src/util/mirror-image.js';
 import computeCanny from './src/util/compute-canny.js';
+import computeSat from './src/util/compute-sat.js';
+import computeSquaredSat from './src/util/compute-squared-sat.js';
 
 export default function ObjectDetector() {
   console.log(typeof convertRgbaToGrayscale);

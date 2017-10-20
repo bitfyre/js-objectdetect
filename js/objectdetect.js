@@ -8,43 +8,6 @@ var objectdetect = (function() {
   'use strict';
 
   var /**
-		 * Computes the integral image of a 1-channel image. Arithmetic
-		 * overflow may occur if the integral exceeds the limits for the
-		 * destination image values ([0, 2^32-1] for an unsigned 32-bit image).
-		 * The integral image is 1 pixel wider both in vertical and horizontal
-		 * dimension compared to the source image.
-		 *
-		 * SAT = Summed Area Table.
-		 *
-		 * @param {Array}       src       1-channel source image
-		 * @param {Number}      srcWidth  Width of the source image
-		 * @param {Number}      srcHeight Height of the source image
-		 * @param {Uint32Array} [dst]     1-channel destination image
-		 *
-		 * @return {Uint32Array} 1-channel destination image
-		 */
-    computeSat = function(src, srcWidth, srcHeight, dst) {
-      var dstWidth = srcWidth + 1;
-
-      if (!dst)
-        dst = new Uint32Array(srcWidth * srcHeight + dstWidth + srcHeight);
-
-      for (var i = srcHeight * dstWidth; i >= 0; i -= dstWidth) dst[i] = 0;
-
-      for (var x = 1; x <= srcWidth; ++x) {
-        var column_sum = 0;
-        var index = x;
-        dst[x] = 0;
-
-        for (var y = 1; y <= srcHeight; ++y) {
-          column_sum += src[index - y];
-          index += dstWidth;
-          dst[index] = dst[index - 1] + column_sum;
-        }
-      }
-      return dst;
-    },
-    /**
 		 * Computes the squared integral image of a 1-channel image.
 		 * @see computeSat()
 		 *
