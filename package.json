@@ -2,7 +2,7 @@
   "name": "object-detect",
   "version": "2.0.0-alpha.1",
   "description": "Native JavaScript Object Detection",
-  "main": "index.js",
+  "main": "main.js",
   "directories": {
     "example": "examples"
   },
