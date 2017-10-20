@@ -7,7 +7,10 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup --config",
+    "start": "rollup --config --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix main.js rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,9 @@
     "object-detection"
   ],
   "contributors": [
-    { "name": "Martin Tschirsich" },
+    {
+      "name": "Martin Tschirsich"
+    },
     {
       "name": "Alex Lemanski",
       "url": "http://bitfyre.net"
@@ -28,5 +33,17 @@
   "bugs": {
     "url": "https://github.com/bitfyre/object-detect/issues"
   },
-  "homepage": "https://github.com/bitfyre/object-detect#readme"
+  "homepage": "https://github.com/bitfyre/object-detect#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "prettier": "^1.7.4",
+    "rollup": "^0.50.0",
+    "rollup-plugin-eslint": "^4.0.0"
+  }
 }

@@ -5,3 +5,7 @@
  * Copyright (c) 2017, Alex Lemanski
  */
 
+export default function() {
+  console.log('test');
+  return 'test';
+}
