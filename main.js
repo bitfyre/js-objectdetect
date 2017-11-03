@@ -45,10 +45,7 @@ export default class ObjectDetect {
     var scale = 1;
     for (var i = 0; i < this.numScales; ++i) {
       var scaledWidth = ~~(width / scale);
-      this.compiledClassifiers[i] = objectdetect.compileClassifier(
-        classifier,
-        scaledWidth
-      );
+      this.compiledClassifiers[i] = compileClassifier(classifier, scaledWidth);
       scale *= scaleFactor;
     }
   }
