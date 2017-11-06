@@ -6,16 +6,16 @@
  */
 
 /**
-		 * Computes the rotated / tilted integral image of a 1-channel image.
-		 * @see computeSat()
-		 *
-		 * @param {Array}       src       1-channel source image
-		 * @param {Number}      srcWidth  Width of the source image
-		 * @param {Number}      srcHeight Height of the source image
-		 * @param {Uint32Array} [dst]     1-channel destination image
-		 *
-		 * @return {Uint32Array} 1-channel destination image
-		 */
+ * Computes the rotated / tilted integral image of a 1-channel image.
+ * @see computeSat()
+ *
+ * @param {Array}       src       1-channel source image
+ * @param {Number}      srcWidth  Width of the source image
+ * @param {Number}      srcHeight Height of the source image
+ * @param {Uint32Array} [dst]     1-channel destination image
+ *
+ * @return {Uint32Array} 1-channel destination image
+ */
 export default function computeRsat(src, srcWidth, srcHeight, dst) {
   var dstWidth = srcWidth + 1,
     srcHeightTimesDstWidth = srcHeight * dstWidth;

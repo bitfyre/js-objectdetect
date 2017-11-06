@@ -18,7 +18,6 @@
  *
  * @return {Array} 1-channel destination image
  */
-
 export default function rescaleImage(src, srcWidth, srcHeight, factor, dst) {
   let srcLength = srcHeight * srcWidth,
     dstWidth = ~~(srcWidth / factor),
