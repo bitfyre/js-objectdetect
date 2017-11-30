@@ -6,19 +6,19 @@
  */
 
 /**
-		 * Evaluates a compiled cascade classifier. Sliding window approach.
-		 *
-		 * @param {Uint32Array}  sat        SAT of the source image
-		 * @param {Uint32Array}  rsat       Rotated SAT of the source image
-		 * @param {Uint32Array}  ssat       Squared SAT of the source image
-		 * @param {Uint32Array}  [cannySat] SAT of the canny source image
-		 * @param {Number}       width      Width of the source image
-		 * @param {Number}       height     Height of the source image
-		 * @param {Number}       step       Stepsize, increase for performance
-		 * @param {Float32Array} classifier Compiled cascade classifier
-		 *
-		 * @return {Array} Rectangles representing detected objects
-		 */
+ * Evaluates a compiled cascade classifier. Sliding window approach.
+ *
+ * @param {Uint32Array}  sat        SAT of the source image
+ * @param {Uint32Array}  rsat       Rotated SAT of the source image
+ * @param {Uint32Array}  ssat       Squared SAT of the source image
+ * @param {Uint32Array}  [cannySat] SAT of the canny source image
+ * @param {Number}       width      Width of the source image
+ * @param {Number}       height     Height of the source image
+ * @param {Number}       step       Stepsize, increase for performance
+ * @param {Float32Array} classifier Compiled cascade classifier
+ *
+ * @return {Array} Rectangles representing detected objects
+ */
 export default function detect(
   sat,
   rsat,

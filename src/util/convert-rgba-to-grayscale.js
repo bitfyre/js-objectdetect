@@ -6,14 +6,14 @@
  */
 
 /**
-   * Converts from a 4-channel RGBA source image to a 1-channel grayscale
-   * image. Corresponds to the CV_RGB2GRAY OpenCV color space conversion.
-   *
-   * @param {Array} src   4-channel 8-bit source image
-   * @param {Array} [dst] 1-channel 32-bit destination image
-   *
-   * @return {Array} 1-channel 32-bit destination image
-   */
+ * Converts from a 4-channel RGBA source image to a 1-channel grayscale
+ * image. Corresponds to the CV_RGB2GRAY OpenCV color space conversion.
+ *
+ * @param {Array} src   4-channel 8-bit source image
+ * @param {Array} [dst] 1-channel 32-bit destination image
+ *
+ * @return {Array} 1-channel 32-bit destination image
+ */
 export default function convertRgbaToGrayscale(src, dst) {
   const srcLength = src.length;
   if (!dst) dst = new Uint32Array(srcLength >> 2);

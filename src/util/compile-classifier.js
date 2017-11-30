@@ -6,15 +6,15 @@
  */
 
 /**
-		 * Compiles a cascade classifier to be applicable to images
-		 * of given dimensions. Speeds-up the actual detection process later on.
-		 *
-		 * @param {Array}        src    Cascade classifier
-		 * @param {Number}       width  Width of the source image
-		 * @param {Float32Array} [dst]  Compiled cascade classifier
-		 *
-		 * @return {Float32Array} Compiled cascade classifier
-		 */
+ * Compiles a cascade classifier to be applicable to images
+ * of given dimensions. Speeds-up the actual detection process later on.
+ *
+ * @param {Array}        src    Cascade classifier
+ * @param {Number}       width  Width of the source image
+ * @param {Float32Array} [dst]  Compiled cascade classifier
+ *
+ * @return {Float32Array} Compiled cascade classifier
+ */
 export default function compileClassifier(src, width, scale, dst) {
   width += 1;
   if (!dst) dst = new Float32Array(src.length);

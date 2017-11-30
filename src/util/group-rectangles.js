@@ -6,15 +6,15 @@
  */
 
 /**
-		 * Groups rectangles together using a rectilinear distance metric. For
-		 * each group of related rectangles, a representative mean rectangle
-		 * is returned.
-		 *
-		 * @param {Array}  rects        Rectangles (Arrays of 4 floats)
-		 * @param {Number} minNeighbors Minimum neighbors for returned groups
-		 * @param {Number} confluence	Neighbor distance threshold factor
-		 * @return {Array} Mean rectangles (Arrays of 4 floats)
-		 */
+ * Groups rectangles together using a rectilinear distance metric. For
+ * each group of related rectangles, a representative mean rectangle
+ * is returned.
+ *
+ * @param {Array}  rects        Rectangles (Arrays of 4 floats)
+ * @param {Number} minNeighbors Minimum neighbors for returned groups
+ * @param {Number} confluence	Neighbor distance threshold factor
+ * @return {Array} Mean rectangles (Arrays of 4 floats)
+ */
 export default function groupRectangles(rects, minNeighbors, confluence) {
   var rectsLength = rects.length;
   if (!confluence) confluence = 0.25;
