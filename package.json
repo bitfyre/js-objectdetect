@@ -13,6 +13,7 @@
     "build:iife": "NODE_ENV=development rollup --config",
     "build":
       "npm run build:iife && npm run build:iife:min && npm run build:cjs && npm run build:es ",
+    "clean": "del {lib,module,dist}",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix main.js src/**/*.js rollup.config.js"
@@ -38,6 +39,7 @@
   "homepage": "https://github.com/bitfyre/object-detect#readme",
   "devDependencies": {
     "babel-eslint": "^8.0.2",
+    "del-cli": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
