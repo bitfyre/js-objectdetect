@@ -5,6 +5,7 @@ const env = process.env.NODE_ENV;
 
 let buildDir;
 let buildFormat;
+let minify = env === 'production';
 
 if (env === 'production' || env === 'development') {
   buildDir = 'dist';
