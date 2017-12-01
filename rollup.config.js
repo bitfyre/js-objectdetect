@@ -1,23 +1,24 @@
+import babel from 'rollup-plugin-babel';
 import eslint from 'rollup-plugin-eslint';
-import path from 'path';
+import filesize from 'rollup-plugin-filesize';
+import uglify from 'rollup-plugin-uglify';
 
 const env = process.env.NODE_ENV;
 
 let buildDir;
 let buildFormat;
 let suffix = '';
-
-if (env === 'production' || env === 'development') {
-  buildDir = 'dist';
-  buildFormat = 'iife';
-}
-
-if (env === 'production') {
-  suffix = '.min';
-}
+const plugins = [];
 
 if (env === 'es' || env === 'cjs') {
   buildFormat = env;
+
+  plugins.push(
+    babel({
+      plugins: ['external-helpers']
+    })
+  );
+
   if (env === 'cjs') {
     buildDir = 'lib';
   } else {
@@ -25,10 +26,27 @@ if (env === 'es' || env === 'cjs') {
   }
 }
 
+if (env === 'production' || env === 'development') {
+  buildDir = 'dist';
+  buildFormat = 'iife';
+  plugins.push(
+    babel({
+      exclude: 'node_modules/**',
+      plugins: ['external-helpers']
+    }),
+    filesize()
+  );
+}
+
+if (env === 'production') {
+  suffix = '.min';
+  plugins.push(uglify());
+}
+
 const sources = [
   {
     input: 'main',
-    name: 'ObjectDetector'
+    name: 'objectDetector'
   },
   {
     input: 'classifiers/eye',
@@ -87,7 +105,8 @@ const config = sources.map(i => {
       file: `${buildDir}/${i.input}${suffix}.js`,
       format: buildFormat,
       name: i.name
-    }
+    },
+    plugins
   };
 });
 

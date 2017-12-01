@@ -11,18 +11,21 @@
     "build:es": "NODE_ENV=es rollup --config",
     "build:iife:min": "NODE_ENV=production rollup --config",
     "build:iife": "NODE_ENV=development rollup --config",
-    "build":
-      "npm run build:iife && npm run build:iife:min && npm run build:cjs && npm run build:es ",
+    "build": "npm run build:iife && npm run build:iife:min && npm run build:cjs && npm run build:es ",
     "clean": "del {lib,module,dist}",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix main.js src/**/*.js rollup.config.js"
+    "lint": "eslint --fix main.js src/**/*.js rollup.config.js",
+    "prepublish": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitfyre/object-detect.git"
   },
-  "keywords": ["face-detection", "object-detection"],
+  "keywords": [
+    "face-detection",
+    "object-detection"
+  ],
   "contributors": [
     {
       "name": "Martin Tschirsich"
@@ -38,7 +41,12 @@
   },
   "homepage": "https://github.com/bitfyre/object-detect#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "del-cli": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -48,6 +56,9 @@
     "eslint-plugin-prettier": "^2.3.1",
     "prettier": "^1.8.2",
     "rollup": "^0.52.0",
-    "rollup-plugin-eslint": "^4.0.0"
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-uglify": "^2.0.1"
   }
 }

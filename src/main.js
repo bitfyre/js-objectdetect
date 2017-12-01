@@ -28,7 +28,7 @@ import groupRectangles from './util/group-rectangles.js';
  * @param scaleFactor Scaling factor for multi-scale detection
  * @param classifier  Compiled cascade classifier
  */
-export default class ObjectDetect {
+class ObjectDetect {
   constructor(width, height, scaleFactor, classifier) {
     this.canvas = document.createElement('canvas');
     this.canvas.width = width;
@@ -166,6 +166,7 @@ export default class ObjectDetect {
 }
 
 export {
+  ObjectDetect,
   convertRgbaToGrayscale,
   rescaleImage,
   mirrorImage,
