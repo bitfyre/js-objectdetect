@@ -5,18 +5,18 @@
  * Copyright (c) 2017, Alex Lemanski
  */
 
-import convertRgbaToGrayscale from './src/util/convert-rgba-to-grayscale.js';
-import rescaleImage from './src/util/rescale-image.js';
-import mirrorImage from './src/util/mirror-image.js';
-import computeCanny from './src/util/compute-canny.js';
-import computeSat from './src/util/compute-sat.js';
-import computeSquaredSat from './src/util/compute-squared-sat.js';
-import computeRsat from './src/util/compute-rsat.js';
-import equalizeHistogram from './src/util/equalize-histogram.js';
-import mirrorClassifier from './src/util/mirror-classifier.js';
-import compileClassifier from './src/util/compile-classifier.js';
-import detect from './src/util/detect.js';
-import groupRectangles from './src/util/group-rectangles.js';
+import convertRgbaToGrayscale from './util/convert-rgba-to-grayscale.js';
+import rescaleImage from './util/rescale-image.js';
+import mirrorImage from './util/mirror-image.js';
+import computeCanny from './util/compute-canny.js';
+import computeSat from './util/compute-sat.js';
+import computeSquaredSat from './util/compute-squared-sat.js';
+import computeRsat from './util/compute-rsat.js';
+import equalizeHistogram from './util/equalize-histogram.js';
+import mirrorClassifier from './util/mirror-classifier.js';
+import compileClassifier from './util/compile-classifier.js';
+import detect from './util/detect.js';
+import groupRectangles from './util/group-rectangles.js';
 
 /**
  * Creates a new detector - basically a convenient wrapper class around
@@ -28,7 +28,7 @@ import groupRectangles from './src/util/group-rectangles.js';
  * @param scaleFactor Scaling factor for multi-scale detection
  * @param classifier  Compiled cascade classifier
  */
-export default class ObjectDetect {
+class ObjectDetect {
   constructor(width, height, scaleFactor, classifier) {
     this.canvas = document.createElement('canvas');
     this.canvas.width = width;
@@ -50,15 +50,15 @@ export default class ObjectDetect {
     }
   }
   /**
-		 * Multi-scale object detection on image, video or canvas elements.
-		 *
-		 * @param image          HTML image, video or canvas element
-		 * @param [group]        Detection results will be grouped by proximity
-		 * @param [stepSize]     Increase for performance
-		 * @param [roi]          Region of interest, i.e. search window
-		 *
-		 * @return Grouped rectangles
-		 */
+   * Multi-scale object detection on image, video or canvas elements.
+   *
+   * @param image          HTML image, video or canvas element
+   * @param [group]        Detection results will be grouped by proximity
+   * @param [stepSize]     Increase for performance
+   * @param [roi]          Region of interest, i.e. search window
+   *
+   * @return Grouped rectangles
+   */
   detect(image, group, stepSize, roi, canny) {
     if (stepSize === undefined) stepSize = 1;
     if (group === undefined) group = 1;
@@ -164,3 +164,19 @@ export default class ObjectDetect {
     });
   }
 }
+
+export {
+  ObjectDetect,
+  convertRgbaToGrayscale,
+  rescaleImage,
+  mirrorImage,
+  computeCanny,
+  computeSat,
+  computeSquaredSat,
+  computeRsat,
+  equalizeHistogram,
+  mirrorClassifier,
+  compileClassifier,
+  detect,
+  groupRectangles
+};
