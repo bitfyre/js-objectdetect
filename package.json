@@ -7,25 +7,32 @@
   "directories": {
     "example": "examples"
   },
-  "files": ["dist", "lib", "es", "src"],
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
   "scripts": {
     "build:cjs": "NODE_ENV=cjs rollup --config",
     "build:es": "NODE_ENV=es rollup --config",
     "build:iife:min": "NODE_ENV=production rollup --config",
     "build:iife": "NODE_ENV=development rollup --config",
-    "build":
-      "npm run build:iife && npm run build:iife:min && npm run build:cjs && npm run build:es ",
+    "build": "npm run build:iife && npm run build:iife:min && npm run build:cjs && npm run build:es ",
     "clean": "del {lib,module,dist}",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix main.js src/**/*.js rollup.config.js",
-    "prepublish": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitfyre/object-detect.git"
   },
-  "keywords": ["face-detection", "object-detection"],
+  "keywords": [
+    "face-detection",
+    "object-detection"
+  ],
   "contributors": [
     {
       "name": "Martin Tschirsich"
