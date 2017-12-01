@@ -22,115 +22,70 @@ if (env === 'es' || env === 'cjs') {
   }
 }
 
-const sourceConfigs = [
+const sources = [
   {
-    input: 'main.js',
-    output: {
-      file: path.join(buildDir, 'bundle.js'),
-      format: buildFormat,
-      name: 'ObjectDetector'
-    },
-    //plugins: [eslint()],
-    watch: {
-      include: ['main.js', 'src/**/*.js']
-    }
+    input: 'main',
+    name: 'ObjectDetector'
   },
   {
-    input: 'src/classifiers/eye.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/eye.js'),
-      format: buildFormat,
-      name: 'eye'
-    }
+    input: 'classifiers/eye',
+    name: 'eye'
   },
   {
-    input: 'src/classifiers/frontal-cat-face.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/frontal-cat-face.js'),
-      format: buildFormat,
-      name: 'frontalCatFace'
-    }
+    input: 'classifiers/frontal-cat-face',
+    name: 'frontalCatFace'
   },
   {
-    input: 'src/classifiers/frontal-face-alt.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/frontal-face-alt.js'),
-      format: buildFormat,
-      name: 'frontalFaceAlt'
-    }
+    input: 'classifiers/frontal-face-alt',
+    name: 'frontalFaceAlt'
   },
   {
-    input: 'src/classifiers/frontal-face.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/frontal-face.js'),
-      format: buildFormat,
-      name: 'frontalFace'
-    }
+    input: 'classifiers/frontal-face',
+    name: 'frontalFace'
   },
   {
-    input: 'src/classifiers/fullbody.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/fullbody.js'),
-      format: buildFormat,
-      name: 'fullbody'
-    }
+    input: 'classifiers/fullbody',
+    name: 'fullbody'
   },
   {
-    input: 'src/classifiers/hand-fist.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/hand-fist.js'),
-      format: buildFormat,
-      name: 'handFist'
-    }
+    input: 'classifiers/hand-fist',
+    name: 'handFist'
   },
   {
-    input: 'src/classifiers/hand-open.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/hand-open.js'),
-      format: buildFormat,
-      name: 'handOpen'
-    }
+    input: 'classifiers/hand-open',
+    name: 'handOpen'
   },
   {
-    input: 'src/classifiers/mouth.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/mouth.js'),
-      format: buildFormat,
-      name: 'mouth'
-    }
+    input: 'classifiers/mouth',
+    name: 'mouth'
   },
   {
-    input: 'src/classifiers/nose.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/nose.js'),
-      format: buildFormat,
-      name: 'nose'
-    }
+    input: 'classifiers/nose',
+    name: 'nose'
   },
   {
-    input: 'src/classifiers/profile-face.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/profile-face.js'),
-      format: buildFormat,
-      name: 'profileFace'
-    }
+    input: 'classifiers/profile-face',
+    name: 'profileFace'
   },
   {
-    input: 'src/classifiers/smile.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/smile.js'),
-      format: buildFormat,
-      name: 'smile'
-    }
+    input: 'classifiers/smile',
+    name: 'smile'
   },
   {
-    input: 'src/classifiers/upper-body.js',
-    output: {
-      file: path.join(buildDir, 'classifiers/upper-body.js'),
-      format: buildFormat,
-      name: 'upperBody'
-    }
+    input: 'classifiers/upper-body',
+    name: 'upperBody'
   }
 ];
 
-export default sourceConfigs;
+const config = sources.map(i => {
+  return {
+    input: `src/${i.input}.js`,
+    output: {
+      file: `${buildDir}/${i.input}.js`,
+      format: buildFormat,
+      name: i.name
+    }
+  };
+});
+
+export default config;

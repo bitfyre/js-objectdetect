@@ -5,18 +5,18 @@
  * Copyright (c) 2017, Alex Lemanski
  */
 
-import convertRgbaToGrayscale from './src/util/convert-rgba-to-grayscale.js';
-import rescaleImage from './src/util/rescale-image.js';
-import mirrorImage from './src/util/mirror-image.js';
-import computeCanny from './src/util/compute-canny.js';
-import computeSat from './src/util/compute-sat.js';
-import computeSquaredSat from './src/util/compute-squared-sat.js';
-import computeRsat from './src/util/compute-rsat.js';
-import equalizeHistogram from './src/util/equalize-histogram.js';
-import mirrorClassifier from './src/util/mirror-classifier.js';
-import compileClassifier from './src/util/compile-classifier.js';
-import detect from './src/util/detect.js';
-import groupRectangles from './src/util/group-rectangles.js';
+import convertRgbaToGrayscale from './util/convert-rgba-to-grayscale.js';
+import rescaleImage from './util/rescale-image.js';
+import mirrorImage from './util/mirror-image.js';
+import computeCanny from './util/compute-canny.js';
+import computeSat from './util/compute-sat.js';
+import computeSquaredSat from './util/compute-squared-sat.js';
+import computeRsat from './util/compute-rsat.js';
+import equalizeHistogram from './util/equalize-histogram.js';
+import mirrorClassifier from './util/mirror-classifier.js';
+import compileClassifier from './util/compile-classifier.js';
+import detect from './util/detect.js';
+import groupRectangles from './util/group-rectangles.js';
 
 /**
  * Creates a new detector - basically a convenient wrapper class around
