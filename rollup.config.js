@@ -5,16 +5,19 @@ const env = process.env.NODE_ENV;
 
 let buildDir;
 let buildFormat;
-let minify = env === 'production';
+let suffix = '';
 
 if (env === 'production' || env === 'development') {
   buildDir = 'dist';
   buildFormat = 'iife';
 }
 
+if (env === 'production') {
+  suffix = '.min';
+}
+
 if (env === 'es' || env === 'cjs') {
   buildFormat = env;
-
   if (env === 'cjs') {
     buildDir = 'lib';
   } else {
@@ -81,7 +84,7 @@ const config = sources.map(i => {
   return {
     input: `src/${i.input}.js`,
     output: {
-      file: `${buildDir}/${i.input}.js`,
+      file: `${buildDir}/${i.input}${suffix}.js`,
       format: buildFormat,
       name: i.name
     }
