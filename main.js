@@ -50,15 +50,15 @@ export default class ObjectDetect {
     }
   }
   /**
-		 * Multi-scale object detection on image, video or canvas elements.
-		 *
-		 * @param image          HTML image, video or canvas element
-		 * @param [group]        Detection results will be grouped by proximity
-		 * @param [stepSize]     Increase for performance
-		 * @param [roi]          Region of interest, i.e. search window
-		 *
-		 * @return Grouped rectangles
-		 */
+   * Multi-scale object detection on image, video or canvas elements.
+   *
+   * @param image          HTML image, video or canvas element
+   * @param [group]        Detection results will be grouped by proximity
+   * @param [stepSize]     Increase for performance
+   * @param [roi]          Region of interest, i.e. search window
+   *
+   * @return Grouped rectangles
+   */
   detect(image, group, stepSize, roi, canny) {
     if (stepSize === undefined) stepSize = 1;
     if (group === undefined) group = 1;
@@ -164,3 +164,18 @@ export default class ObjectDetect {
     });
   }
 }
+
+export {
+  convertRgbaToGrayscale,
+  rescaleImage,
+  mirrorImage,
+  computeCanny,
+  computeSat,
+  computeSquaredSat,
+  computeRsat,
+  equalizeHistogram,
+  mirrorClassifier,
+  compileClassifier,
+  detect,
+  groupRectangles
+};
