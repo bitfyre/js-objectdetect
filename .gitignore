@@ -5,3 +5,4 @@ dist
 module
 build
 *.tgz
+node_modules
