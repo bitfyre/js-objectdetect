@@ -66,9 +66,8 @@ class ObjectDetect {
     var width = this.canvas.width;
     var height = this.canvas.height;
 
-    var ratio = Math.max(roi[2] / width, roi[3] / height);
-
     if (roi)
+      var ratio = Math.max(roi[2] / width, roi[3] / height);
       this.context.drawImage(
         image,
         roi[0],
