@@ -1,6 +1,6 @@
 {
   "name": "object-detect",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Native JavaScript Object Detection",
   "main": "lib/main.js",
   "module": "module/main.js",
