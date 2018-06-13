@@ -66,7 +66,7 @@ class ObjectDetect {
     var width = this.canvas.width;
     var height = this.canvas.height;
 
-    if (roi)
+    if (roi) {
       var ratio = Math.max(roi[2] / width, roi[3] / height);
       this.context.drawImage(
         image,
@@ -79,7 +79,10 @@ class ObjectDetect {
         roi[2] / ratio,
         roi[3] / ratio
       );
-    else this.context.drawImage(image, 0, 0, width, height);
+    } else {
+      this.context.drawImage(image, 0, 0, width, height);
+    }
+
     var imageData = this.context.getImageData(0, 0, width, height).data;
     this.gray = convertRgbaToGrayscale(imageData, this.gray);
 
